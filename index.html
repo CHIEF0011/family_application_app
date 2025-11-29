@@ -82,6 +82,7 @@
                 <div class="section-header">
                     <h2>Family Members</h2>
                     <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="membersSearchInput" class="search-input" placeholder="Search members...">
                         <button class="btn-primary" id="addMemberBtn">Add Member</button>
                         <button class="btn-primary" id="printMembersBtn">Print Table</button>
                     </div>
@@ -113,6 +114,7 @@
                 <div class="section-header">
                     <h2>Contributions</h2>
                     <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="contributionsSearchInput" class="search-input" placeholder="Search contributions...">
                         <button class="btn-primary" id="addContributionBtn">Add Contribution</button>
                         <button class="btn-primary" id="addBeneficiaryBtn">Add Beneficiary</button>
                         <button class="btn-primary" id="printContributionsBtn">Print Table</button>
@@ -142,6 +144,7 @@
                 <div class="section-header">
                     <h2>Savings</h2>
                     <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="savingsSearchInput" class="search-input" placeholder="Search savings...">
                         <button class="btn-primary" id="addSavingBtn">Add Saving</button>
                         <button class="btn-primary" id="printSavingsBtn">Print Table</button>
                     </div>
@@ -175,7 +178,10 @@
             <section id="senior" class="section">
                 <div class="section-header">
                     <h2>Senior Members (60+ Years)</h2>
-                    <button class="btn-primary" id="printSeniorBtn">Print Table</button>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="seniorSearchInput" class="search-input" placeholder="Search senior members...">
+                        <button class="btn-primary" id="printSeniorBtn">Print Table</button>
+                    </div>
                 </div>
                 <div class="table-container">
                     <table id="seniorTable">
@@ -200,7 +206,10 @@
             <section id="departed" class="section">
                 <div class="section-header">
                     <h2>Departed Members</h2>
-                    <button class="btn-primary" id="printDepartedBtn">Print Table</button>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="departedSearchInput" class="search-input" placeholder="Search departed members...">
+                        <button class="btn-primary" id="printDepartedBtn">Print Table</button>
+                    </div>
                 </div>
                 <div class="table-container">
                     <table id="departedTable">
@@ -224,7 +233,10 @@
             <section id="performance" class="section">
                 <div class="section-header">
                     <h2>Member Performance & Achievements</h2>
-                    <button class="btn-primary" id="printPerformanceBtn">Print Report</button>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" id="performanceSearchInput" class="search-input" placeholder="Search performance...">
+                        <button class="btn-primary" id="printPerformanceBtn">Print Report</button>
+                    </div>
                 </div>
                 <div class="table-container">
                     <table id="performanceTable">

@@ -962,3 +962,35 @@ textarea:focus {
 #departedTableBody tr:hover {
     background-color: #fef3c7;
 }
+
+/* Search Input Styling */
+.search-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    flex: 1;
+    max-width: 300px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .search-input {
+        max-width: 100%;
+    }
+}
+
+/* Hidden table rows for search */
+table tbody tr.hidden {
+    display: none;
+}

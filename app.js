@@ -30,6 +30,37 @@ class FamilyManagementApp {
             btn.addEventListener('click', (e) => this.switchSection(e.target.dataset.section));
         });
 
+        // Search inputs for tables
+        const membersSearch = document.getElementById('membersSearchInput');
+        if (membersSearch) {
+            membersSearch.addEventListener('keyup', (e) => this.searchTable('membersTableBody', e.target.value));
+        }
+
+        const contributionsSearch = document.getElementById('contributionsSearchInput');
+        if (contributionsSearch) {
+            contributionsSearch.addEventListener('keyup', (e) => this.searchTable('contributionsTableBody', e.target.value));
+        }
+
+        const savingsSearch = document.getElementById('savingsSearchInput');
+        if (savingsSearch) {
+            savingsSearch.addEventListener('keyup', (e) => this.searchTable('savingsTableBody', e.target.value));
+        }
+
+        const seniorSearch = document.getElementById('seniorSearchInput');
+        if (seniorSearch) {
+            seniorSearch.addEventListener('keyup', (e) => this.searchTable('seniorTableBody', e.target.value));
+        }
+
+        const departedSearch = document.getElementById('departedSearchInput');
+        if (departedSearch) {
+            departedSearch.addEventListener('keyup', (e) => this.searchTable('departedTableBody', e.target.value));
+        }
+
+        const performanceSearch = document.getElementById('performanceSearchInput');
+        if (performanceSearch) {
+            performanceSearch.addEventListener('keyup', (e) => this.searchTable('performanceTableBody', e.target.value));
+        }
+
         // Modals - Add null checks
         const addMemberBtn = document.getElementById('addMemberBtn');
         if (addMemberBtn) {
@@ -1424,6 +1455,23 @@ class FamilyManagementApp {
             this.updateDashboard();
             this.uiManager.showMessage('Beneficiary deleted successfully!', 'success');
         }
+    }
+
+    searchTable(tableBodyId, searchTerm) {
+        const tbody = document.getElementById(tableBodyId);
+        if (!tbody) return;
+
+        const rows = tbody.querySelectorAll('tr');
+        const lowerSearchTerm = searchTerm.toLowerCase();
+
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(lowerSearchTerm)) {
+                row.classList.remove('hidden');
+            } else {
+                row.classList.add('hidden');
+            }
+        });
     }
 
     getAchievementLevel(contributionCount) {
