@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="nav-title">Family Management</h1>
+                <div class="nav-menu">
+                    <button class="nav-item active" data-section="dashboard">Dashboard</button>
+                    <button class="nav-item" data-section="members">Members</button>
+                    <button class="nav-item" data-section="contributions">Contributions</button>
+                    <button class="nav-item" data-section="savings">Savings</button>
+                    <button class="nav-item" data-section="senior">Senior Members</button>
+                    <button class="nav-item" data-section="departed">Departed Members</button>
+                    <button class="nav-item" data-section="performance">Performance</button>
+                    <button class="nav-item" data-section="settings">Settings</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                    <div class="date-display" id="currentDate"></div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <h3>Total Members</h3>
+                        <p class="stat-number" id="totalMembers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Savings</h3>
+                        <p class="stat-number" id="totalSavings">KES 0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Contributions</h3>
+                        <p class="stat-number" id="totalContributions">KES 0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Contributors</h3>
+                        <p class="stat-number" id="activeContributors">0</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="contributionsChart"></canvas>
+                </div>
+                <div class="beneficiary-section">
+                    <h3>Beneficiary Summary</h3>
+                    <div class="table-container">
+                        <table id="dashboardBeneficiaryTable">
+                            <thead>
+                                <tr>
+                                    <th>Beneficiary ID</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Total Contributed</th>
+                                    <th>Contributors</th>
+                                    <th>Average Collection</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboardBeneficiaryBody">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Members Section -->
+            <section id="members" class="section">
+                <div class="section-header">
+                    <h2>Family Members</h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-primary" id="addMemberBtn">Add Member</button>
+                        <button class="btn-primary" id="printMembersBtn">Print Table</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="membersTable">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Age</th>
+                                <th>Join Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Contributions Section -->
+            <section id="contributions" class="section">
+                <div class="section-header">
+                    <h2>Contributions</h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-primary" id="addContributionBtn">Add Contribution</button>
+                        <button class="btn-primary" id="addBeneficiaryBtn">Add Beneficiary</button>
+                        <button class="btn-primary" id="printContributionsBtn">Print Table</button>
+                    </div>
+                </div>
+                <div class="table-container table-scroll-wrapper">
+                    <table id="contributionsTable">
+                        <thead id="contributionsHeader">
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Member Name</th>
+                                <!-- Beneficiary columns will be added dynamically -->
+                            </tr>
+                        </thead>
+                        <tbody id="contributionsTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                        <tfoot id="contributionsTotals">
+                            <!-- Totals will be added dynamically -->
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Savings Section -->
+            <section id="savings" class="section">
+                <div class="section-header">
+                    <h2>Savings</h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-primary" id="addSavingBtn">Add Saving</button>
+                        <button class="btn-primary" id="printSavingsBtn">Print Table</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="savingsTable">
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Member Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="savingsTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" style="font-weight: 600; text-align: right;">Total:</td>
+                                <td id="savingsTotalAmount" style="font-weight: 600;">KES 0</td>
+                                <td colspan="2"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Senior Members Section -->
+            <section id="senior" class="section">
+                <div class="section-header">
+                    <h2>Senior Members (60+ Years)</h2>
+                    <button class="btn-primary" id="printSeniorBtn">Print Table</button>
+                </div>
+                <div class="table-container">
+                    <table id="seniorTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Join Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="seniorTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Departed Members Section -->
+            <section id="departed" class="section">
+                <div class="section-header">
+                    <h2>Departed Members</h2>
+                    <button class="btn-primary" id="printDepartedBtn">Print Table</button>
+                </div>
+                <div class="table-container">
+                    <table id="departedTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Join Date</th>
+                                <th>Departure Date</th>
+                                <th>Eulogy</th>
+                            </tr>
+                        </thead>
+                        <tbody id="departedTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Performance Section -->
+            <section id="performance" class="section">
+                <div class="section-header">
+                    <h2>Member Performance & Achievements</h2>
+                    <button class="btn-primary" id="printPerformanceBtn">Print Report</button>
+                </div>
+                <div class="table-container">
+                    <table id="performanceTable">
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Name</th>
+                                <th>Total Contributions</th>
+                                <th>Achievement</th>
+                                <th>Progress to Next</th>
+                            </tr>
+                        </thead>
+                        <tbody id="performanceTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="section">
+                <div class="section-header">
+                    <h2>Settings</h2>
+                </div>
+                <div class="settings-container">
+                    <div class="setting-group">
+                        <h3>General Settings</h3>
+                        <div class="setting-item">
+                            <label>Family Name</label>
+                            <input type="text" id="familyName" placeholder="Enter family name">
+                        </div>
+                        <div class="setting-item">
+                            <label>Address</label>
+                            <input type="text" id="address" placeholder="Enter family address">
+                        </div>
+                        <div class="setting-item">
+                            <label>Currency</label>
+                            <select id="currency">
+                                <option value="KES">KES (KSh)</option>
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Notifications</h3>
+                        <div class="setting-item">
+                            <label>Email Notifications</label>
+                            <input type="checkbox" id="emailNotifications" checked>
+                        </div>
+                        <div class="setting-item">
+                            <label>Contribution Reminders</label>
+                            <input type="checkbox" id="contributionReminders" checked>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Data Management</h3>
+                        <div class="setting-item">
+                            <label>Export Data</label>
+                            <button class="btn-secondary" id="exportDataBtn">Download Backup</button>
+                        </div>
+                        <div class="setting-item">
+                            <label>Import Data</label>
+                            <input type="file" id="importFile" accept=".json" style="display: none;">
+                            <button class="btn-secondary" id="importDataBtn">Restore Backup</button>
+                        </div>
+                        <div class="setting-item">
+                            <label>Clear All Data</label>
+                            <button class="btn-secondary" style="background-color: var(--danger-color); color: white;" id="clearDataBtn">Clear All Data</button>
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="saveSettingsBtn">Save Settings</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modals -->
+        <div id="memberModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add/Edit Member</h3>
+                <form id="memberForm">
+                    <input type="hidden" id="memberId">
+                    <div class="form-group">
+                        <label>Profile Picture</label>
+                        <div class="profile-upload">
+                            <img id="profilePreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23e2e8f0' width='100' height='100'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='.3em' fill='%2364748b' font-size='14'%3ENo Photo%3C/text%3E%3C/svg%3E" alt="Profile">
+                            <input type="file" id="profilePicture" accept="image/*" style="display: none;">
+                            <button type="button" class="btn-secondary btn-sm" onclick="document.getElementById('profilePicture').click()">Upload Photo</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="memberName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="memberEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="memberPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="memberDOB" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="memberStatus">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Member</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="beneficiaryModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Beneficiary</h3>
+                <form id="beneficiaryForm">
+                    <div class="form-group">
+                        <label>Beneficiary Name</label>
+                        <input type="text" id="beneficiaryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="beneficiaryCategory">
+                            <option value="benevolence">Benevolence</option>
+                            <option value="education">Education</option>
+                            <option value="health">Health</option>
+                            <option value="charity">Charity</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Add Beneficiary</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="contributionCellModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Contribution</h3>
+                <form id="contributionCellForm">
+                    <input type="hidden" id="cellMemberId">
+                    <input type="hidden" id="cellBeneficiary">
+                    <div class="form-group">
+                        <label>Member</label>
+                        <input type="text" id="cellMemberName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Beneficiary</label>
+                        <input type="text" id="cellBeneficiaryName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (KES)</label>
+                        <input type="number" id="cellContributionAmount" step="0.01" required>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="submit" class="btn-primary">Save Contribution</button>
+                        <button type="button" class="btn-secondary" id="deleteContributionBtn" style="background-color: var(--danger-color); color: white;">Delete</button>
+                        <button type="button" class="btn-secondary" id="receiptBtn">Generate Receipt</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="quickContributionModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Contribution</h3>
+                <form id="quickContributionForm">
+                    <input type="hidden" id="quickMemberId">
+                    <div class="form-group">
+                        <label>Member</label>
+                        <input type="text" id="quickMemberName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Beneficiary</label>
+                        <select id="quickBeneficiary" required>
+                            <!-- Dynamic options -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (KES)</label>
+                        <input type="number" id="quickContributionAmount" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Contribution</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="contributionModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Contribution</h3>
+                <form id="contributionForm">
+                    <div class="form-group">
+                        <label>Member</label>
+                        <select id="contributionMember" required>
+                            <!-- Dynamic options -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" id="contributionAmount" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="contributionType">
+                            <option value="benevolence">Benevolence</option>
+                            <option value="education">Education</option>
+                            <option value="health">Health</option>
+                            <option value="charity">Charity</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Contribution</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="savingModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Saving</h3>
+                <form id="savingForm">
+                    <div class="form-group">
+                        <label>Member</label>
+                        <select id="savingMember" required>
+                            <!-- Dynamic options -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" id="savingAmount" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Saving</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="departModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Mark Member as Departed</h3>
+                <form id="departForm">
+                    <input type="hidden" id="departMemberId">
+                    <div class="form-group">
+                        <label>Reason for Departure</label>
+                        <input type="text" id="departReason" placeholder="e.g., Relocation, Retirement" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Eulogy</label>
+                        <textarea id="departEulogy" placeholder="Write a tribute to the departed member" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Mark as Departed</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="eulogyModal" class="modal">
+            <div class="modal-content eulogy-modal-content">
+                <span class="close">&times;</span>
+                <div class="eulogy-header">
+                    <h3>Tribute & Memorial</h3>
+                    <p class="eulogy-subtitle">Preserve the memory of our departed loved one</p>
+                </div>
+                <form id="eulogyForm">
+                    <input type="hidden" id="eulogyMemberId">
+                    <div class="form-group">
+                        <label>Memorial Photo</label>
+                        <div class="profile-upload eulogy-upload">
+                            <img id="eulogyProfilePreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect fill='%23e2e8f0' width='120' height='120'/%3E%3Ctext x='60' y='60' text-anchor='middle' dy='.3em' fill='%2364748b' font-size='14'%3EMemorial Photo%3C/text%3E%3C/svg%3E" alt="Profile">
+                            <input type="file" id="eulogyProfilePicture" accept="image/*" style="display: none;">
+                            <button type="button" class="btn-secondary btn-sm" onclick="document.getElementById('eulogyProfilePicture').click()">Upload Photo</button>
+                        </div>
+                    </div>
+
+                    <!-- Introduction Section -->
+                    <div class="eulogy-section">
+                        <h4 class="section-title">The Introduction</h4>
+                        <p class="section-subtitle">Begin with a brief introduction of the person</p>
+                        <div class="form-group">
+                            <label>Opening Remarks</label>
+                            <textarea id="eulogyIntroduction" placeholder="Share how you would like to introduce this beloved member..." rows="4" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Biography Section -->
+                    <div class="eulogy-section">
+                        <h4 class="section-title">The Biography</h4>
+                        <p class="section-subtitle">Outline their life journey and key milestones</p>
+                        <div class="form-group">
+                            <label>Life Journey</label>
+                            <textarea id="eulogyBiography" placeholder="Share their birthplace, family background, education, career, and major life achievements..." rows="5" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Personal Anecdotes & Character Section -->
+                    <div class="eulogy-section">
+                        <h4 class="section-title">Personal Anecdotes & Character</h4>
+                        <p class="section-subtitle">Share meaningful stories and describe their character</p>
+                        <div class="form-group">
+                            <label>Personal Stories & Qualities</label>
+                            <textarea id="eulogyAnecdotes" placeholder="Share memorable stories, funny moments, their values, kindness, and what made them special..." rows="6" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Legacy Section -->
+                    <div class="eulogy-section">
+                        <h4 class="section-title">Legacy & Impact</h4>
+                        <p class="section-subtitle">Describe the lasting impact and legacy they left behind</p>
+                        <div class="form-group">
+                            <label>Their Legacy</label>
+                            <textarea id="eulogyLegacy" placeholder="What will they be remembered for? How did they impact their family and community? What lessons did they teach us?" rows="5"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Closing Section -->
+                    <div class="eulogy-section">
+                        <h4 class="section-title">Closing Remarks</h4>
+                        <p class="section-subtitle">Final words and expressions of love</p>
+                        <div class="form-group">
+                            <label>Final Tribute</label>
+                            <textarea id="eulogyClosing" placeholder="Share final words, expressions of gratitude, and how they will be missed..." rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Tribute</button>
+                        <button type="button" class="btn-secondary" id="printEulogyBtn">Print Tribute</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

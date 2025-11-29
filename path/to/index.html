@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="nav-title">Family Management</h1>
+                <div class="nav-menu">
+                    <button class="nav-item active" data-section="dashboard">Dashboard</button>
+                    <button class="nav-item" data-section="members">Members</button>
+                    <button class="nav-item" data-section="contributions">Contributions</button>
+                    <button class="nav-item" data-section="savings">Savings</button>
+                    <button class="nav-item" data-section="senior">Senior Members</button>
+                    <button class="nav-item" data-section="departed">Departed Members</button>
+                    <button class="nav-item" data-section="settings">Settings</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                    <div class="date-display" id="currentDate"></div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <h3>Total Members</h3>
+                        <p class="stat-number" id="totalMembers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Savings</h3>
+                        <p class="stat-number" id="totalSavings">KES 0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Contributions</h3>
+                        <p class="stat-number" id="totalContributions">KES 0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Contributors</h3>
+                        <p class="stat-number" id="activeContributors">0</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="contributionsChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Members Section -->
+            <section id="members" class="section">
+                <div class="section-header">
+                    <h2>Family Members</h2>
+                    <button class="btn-primary" id="addMemberBtn">Add Member</button>
+                </div>
+                <div class="table-container">
+                    <table id="membersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Join Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="membersTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Contributions Section -->
+            <section id="contributions" class="section">
+                <div class="section-header">
+                    <h2>Contributions</h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-primary" id="addContributionBtn">Add Contribution</button>
+                        <button class="btn-primary" id="addBeneficiaryBtn">Add Beneficiary</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="contributionsTable">
+                        <thead id="contributionsHeader">
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Member Name</th>
+                                <!-- Beneficiary columns will be added dynamically -->
+                            </tr>
+                        </thead>
+                        <tbody id="contributionsTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Savings Section -->
+            <section id="savings" class="section">
+                <div class="section-header">
+                    <h2>Savings</h2>
+                    <button class="btn-primary" id="addSavingBtn">Add Saving</button>
+                </div>
+                <div class="table-container">
+                    <table id="savingsTable">
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Member Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="savingsTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Senior Members Section -->
+            <section id="senior" class="section">
+                <div class="section-header">
+                    <h2>Senior Members</h2>
+                </div>
+                <div class="table-container">
+                    <table id="seniorTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Years of Service</th>
+                            </tr>
+                        </thead>
+                        <tbody id="seniorTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Departed Members Section -->
+            <section id="departed" class="section">
+                <div class="section-header">
+                    <h2>Departed Members</h2>
+                </div>
+                <div class="table-container">
+                    <table id="departedTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Join Date</th>
+                                <th>Departure Date</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="departedTableBody">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="section">
+                <div class="section-header">
+                    <h2>Settings</h2>
+                </div>
+                <div class="settings-container">
+                    <div class="setting-group">
+                        <h3>General Settings</h3>
+                        <div class="setting-item">
+                            <label>Family Name</label>
+                            <input type="text" id="familyName" placeholder="Enter family name">
+                        </div>
+                        <div class="setting-item">
+                            <label>Currency</label>
+                            <select id="currency">
+                                <option value="KES">KES (KSh)</option>
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Notifications</h3>
+                        <div class="setting-item">
+                            <label>Email Notifications</label>
+                            <input type="checkbox" id="emailNotifications" checked>
+                        </div>
+                        <div class="setting-item">
+                            <label>Contribution Reminders</label>
+                            <input type="checkbox" id="contributionReminders" checked>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Data Management</h3>
+                        <div class="setting-item">
+                            <label>Export Data</label>
+                            <button class="btn-secondary" id="exportDataBtn">Download Backup</button>
+                        </div>
+                        <div class="setting-item">
+                            <label>Import Data</label>
+                            <input type="file" id="importFile" accept=".json" style="display: none;">
+                            <button class="btn-secondary" id="importDataBtn">Restore Backup</button>
+                        </div>
+                        <div class="setting-item">
+                            <label>Clear All Data</label>
+                            <button class="btn-secondary" style="background-color: var(--danger-color); color: white;" id="clearDataBtn">Clear All Data</button>
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="saveSettingsBtn">Save Settings</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modals -->
+        <div id="memberModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add/Edit Member</h3>
+                <form id="memberForm">
+                    <input type="hidden" id="memberId">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="memberName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="memberEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="memberPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="memberStatus">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Member</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="beneficiaryModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Beneficiary</h3>
+                <form id="beneficiaryForm">
+                    <div class="form-group">
+                        <label>Beneficiary Name</label>
+                        <input type="text" id="beneficiaryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="beneficiaryCategory">
+                            <option value="benevolence">Benevolence</option>
+                            <option value="education">Education</option>
+                            <option value="health">Health</option>
+                            <option value="charity">Charity</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Add Beneficiary</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="contributionCellModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Contribution</h3>
+                <form id="contributionCellForm">
+                    <input type="hidden" id="cellMemberId">
+                    <input type="hidden" id="cellBeneficiary">
+                    <div class="form-group">
+                        <label>Member</label>
+                        <input type="text" id="cellMemberName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Beneficiary</label>
+                        <input type="text" id="cellBeneficiaryName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (KES)</label>
+                        <input type="number" id="cellContributionAmount" step="0.01" required>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="submit" class="btn-primary">Save Contribution</button>
+                        <button type="button" class="btn-secondary" id="deleteContributionBtn" style="background-color: var(--danger-color); color: white;">Delete</button>
+                        <button type="button" class="btn-secondary" id="receiptBtn">Generate Receipt</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="contributionModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Contribution</h3>
+                <form id="contributionForm">
+                    <div class="form-group">
+                        <label>Member</label>
+                        <select id="contributionMember" required>
+                            <!-- Dynamic options -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" id="contributionAmount" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="contributionType">
+                            <option value="benevolence">Benevolence</option>
+                            <option value="education">Education</option>
+                            <option value="health">Health</option>
+                            <option value="charity">Charity</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Contribution</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="savingModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Add Saving</h3>
+                <form id="savingForm">
+                    <div class="form-group">
+                        <label>Member</label>
+                        <select id="savingMember" required>
+                            <!-- Dynamic options -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" id="savingAmount" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Saving</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
